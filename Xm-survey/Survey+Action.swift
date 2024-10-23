@@ -10,7 +10,10 @@ import ComposableArchitecture
 
 public extension Survey {
 
-    enum Action: Equatable {
+    enum Action: BindableAction {
         case startSurvey
+        case nextQuestion
+        case previousQuestion
+        case binding(BindingAction<State>)
     }
 }

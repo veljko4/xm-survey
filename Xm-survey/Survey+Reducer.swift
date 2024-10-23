@@ -13,6 +13,8 @@ public struct Survey {
     
     public var body: some ReducerOf<Self> {
         
+        BindingReducer()
+
         Reduce { state, action in
             switch action {
             

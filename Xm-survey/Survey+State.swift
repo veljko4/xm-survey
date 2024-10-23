@@ -13,6 +13,9 @@ public extension Survey {
     @ObservableState
     struct State: Equatable {
         var loadingState: LoadingState = .uninitialized
+        
+        var questions: [Question] = []
+        var currentQuestionIndex: Int = 0
     }
 }
 
