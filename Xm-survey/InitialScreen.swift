@@ -6,19 +6,17 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct InitialScreen: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+    
+    private let store: StoreOf<Survey>
+        
+    public init(store: StoreOf<Survey>) {
+        self.store = store
     }
-}
-
-#Preview {
-    InitialScreen()
+    
+    public var body: some View {
+        ZStack {}
+    }
 }
