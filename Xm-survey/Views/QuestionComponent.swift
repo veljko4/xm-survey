@@ -17,33 +17,39 @@ public struct QuestionComponent: View {
     @State private var bannerMessage: String = ""
     @State private var bannerColor: Color = .clear
     
+    @State private var answer: String = ""
+    
     public init(store: StoreOf<Survey>, questionIndex: Int) {
         _store = Bindable(store)
         self.questionIndex = questionIndex
     }
     
     public var body: some View {
+        
+        let isAnswerSubmitted = store.questions[questionIndex].submitted ?? false
+
         VStack {
             Text(store.questions[questionIndex].question ?? "")
                 .padding(.vertical, 16)
             
-            let wrapper = QuestionWrapper(question: store.questions[questionIndex])
-            TextField("Type your answer...", text: wrapper.answerBinding)
+            TextField("Type here for an answer...", text: $answer)
                 .padding(.vertical, 8)
                 .padding(.horizontal)
                 .autocorrectionDisabled()
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.gray, lineWidth: 1)
+                        .stroke(Color.gray, lineWidth: isAnswerSubmitted ? 0 : 1)
                 )
+                .foregroundColor(isAnswerSubmitted ? .gray : .black)
+                .multilineTextAlignment(.center)
                 .padding(.bottom, 32)
+                .disabled(showBanner || isAnswerSubmitted)
             
             if !showBanner {
-                let isAnswerSubmitted = store.questions[questionIndex].submitted ?? false
                 Button(isAnswerSubmitted ? "Already submitted" : "Submit") {
                     store.send(.submitAnswer(questionIndex, store.questions[questionIndex].answer ?? ""))
                 }
-                .disabled(isAnswerSubmitted || showBanner)
+                .disabled(isAnswerSubmitted || showBanner || answer.isEmpty)
             }
             
             if showBanner {
@@ -70,6 +76,9 @@ public struct QuestionComponent: View {
                 showBanner = false
                 store.loadingState = .uninitialized
             }
+        }
+        .onChange(of: store.questions[questionIndex].answer ?? "") { _, newValue in
+            answer = newValue
         }
     }
     

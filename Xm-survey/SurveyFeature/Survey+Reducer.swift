@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 @Reducer
 public struct Survey {
-    let client = SurveyClient.liveEnvironment
+    let client = SurveyClient.productionEnvironment()
     
     public var body: some ReducerOf<Self> {
         BindingReducer()
