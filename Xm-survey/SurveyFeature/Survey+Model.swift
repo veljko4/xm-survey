@@ -15,12 +15,10 @@ public struct Question: Equatable, Identifiable, Codable {
     var submitted: Bool?
 }
 
-struct QuestionWrapper: Identifiable {
+struct QuestionWrapper {
     var question: Question
-    
-    var id: Int { question.id }
-    
-    // Bbinding that handles the optional
+        
+    // Binding that handles the optional
     var answerBinding: Binding<String> {
         Binding<String>(
             get: { question.answer ?? "" },

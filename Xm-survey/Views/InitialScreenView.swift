@@ -23,11 +23,17 @@ struct InitialScreenView: View {
             ZStack {
                 if store.loadingState != .loading {
                     VStack {
+                        Text("Welcome")
+                            .padding(.top, 16)
+                            .frame(maxWidth: .infinity, alignment: .top)
+                        Spacer()
                         Button("Start survey") {
                             store.questions.removeAll()
                             store.send(.startSurvey)
                         }
+                        Spacer()
                     }
+                    .frame(maxHeight: .infinity)
                     
                 } else {
                     ProgressView("Please wait..")
@@ -41,8 +47,14 @@ struct InitialScreenView: View {
                 }
             }
             .navigationDestination(isPresented: $shouldNavigate) {
-                SurveyScreen(store: store)
+                SurveyScreenView(store: store)
             }
         }
     }
+}
+
+#Preview {
+    InitialScreenView(store: .init(initialState: Survey.State()) {
+        Survey()
+    })
 }
