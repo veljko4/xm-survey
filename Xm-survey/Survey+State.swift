@@ -16,6 +16,18 @@ public extension Survey {
         
         var questions: [Question] = []
         var currentQuestionIndex: Int = 0
+        
+        var submittedQuestionsCount: Int {
+            questions.filter { $0.submitted ?? false }.count
+        }
+        
+        var isFirstQuestion: Bool {
+            currentQuestionIndex == 0
+        }
+        
+        var isLastQuestion: Bool {
+            currentQuestionIndex == questions.count - 1
+        }
     }
 }
 

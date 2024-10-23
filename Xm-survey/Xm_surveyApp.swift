@@ -11,7 +11,7 @@ import SwiftUI
 struct Xm_surveyApp: App {
     var body: some Scene {
         WindowGroup {
-            InitialScreen(store: .init(initialState: Survey.State()) {
+            InitialScreenView(store: .init(initialState: Survey.State()) {
                 Survey()
             })
         }

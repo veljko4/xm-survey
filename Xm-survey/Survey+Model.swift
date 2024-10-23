@@ -14,3 +14,20 @@ public struct Question: Equatable, Identifiable, Codable {
     var answer: String?
     var submitted: Bool?
 }
+
+struct QuestionWrapper: Identifiable {
+    var question: Question
+    
+    var id: Int { question.id }
+    
+    // Bbinding that handles the optional
+    var answerBinding: Binding<String> {
+        Binding<String>(
+            get: { question.answer ?? "" },
+            set: { newValue in
+                var updatedQuestion = question
+                updatedQuestion.answer = newValue.isEmpty ? "" : newValue
+            }
+        )
+    }
+}

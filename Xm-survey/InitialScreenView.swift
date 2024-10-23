@@ -1,5 +1,5 @@
 //
-//  InitialScreen.swift
+//  InitialScreenView.swift
 //  Xm-survey
 //
 //  Created by Veljko Bogdanovic on 23.10.24..
@@ -8,7 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct InitialScreen: View {
+struct InitialScreenView: View {
     
     private let store: StoreOf<Survey>
     

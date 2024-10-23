@@ -18,21 +18,26 @@ struct SurveyScreen: View {
     public var body: some View {
         VStack {
             HStack {
-                Text("Questions submitted: ")
+                Text("Questions submitted: \(store.submittedQuestionsCount)")
                 
                 Spacer()
                 
                 Button("Previous") {
                     store.send(.previousQuestion)
                 }
+                .disabled(store.isFirstQuestion)
                 
                 Button("Next") {
                     store.send(.nextQuestion)
                 }
+                .disabled(store.isLastQuestion)
             }
             
             TabView(selection: $store.currentQuestionIndex) {
-
+                ForEach(store.questions.indices, id: \.self) { index in
+                    QuestionView(store: store, questionIndex: index)
+                        .tag(index)
+                }
             }
             .tabViewStyle(PageTabViewStyle())
         }
