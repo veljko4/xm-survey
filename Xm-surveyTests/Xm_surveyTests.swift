@@ -92,4 +92,25 @@ struct Xm_surveyTests {
             $0.loadingState = .failed
         }
     }
+    
+    @Test("Should return the correct indexes for next and previous questions")
+    func testNextAndPreviousQuestion() async {
+        store.exhaustivity = .off
+        
+        let questions = [
+            Question(id: 1, question: "What's your favorite color?"),
+            Question(id: 2, question: "What's your favorite food?")]
+        
+        await store.send(.loadQuestions(.success(questions))) {
+            $0.loadingState = .finished
+        }
+        
+        await store.send(.nextQuestion) {
+            $0.currentQuestionIndex = 1
+        }
+        
+        await store.send(.previousQuestion) {
+            $0.currentQuestionIndex = 0
+        }
+    }
 }
