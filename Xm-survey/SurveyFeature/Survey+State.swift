@@ -31,7 +31,6 @@ public extension Survey {
     }
 }
 
-
 public enum LoadingState: Equatable {
     case uninitialized
     case loading

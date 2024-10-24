@@ -13,11 +13,11 @@ public struct QuestionComponent: View {
     
     private let questionIndex: Int
     
+    @State private var answer: String = ""
+    
     @State private var showBanner: Bool = false
     @State private var bannerMessage: String = ""
     @State private var bannerColor: Color = .clear
-    
-    @State private var answer: String = ""
     
     public init(store: StoreOf<Survey>, questionIndex: Int) {
         _store = Bindable(store)
@@ -27,7 +27,7 @@ public struct QuestionComponent: View {
     public var body: some View {
         
         let isAnswerSubmitted = store.questions[questionIndex].submitted ?? false
-
+        
         VStack {
             Text(store.questions[questionIndex].question ?? "")
                 .padding(.vertical, 16)

@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 public extension Survey {
-
+    
     enum Action: BindableAction {
         case startSurvey
         case loadQuestions(Result<[Question], NetworkError>)
